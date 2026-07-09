@@ -164,13 +164,13 @@ function GeneralTab() {
             <Field
               label="Endpoint OpenAI-compatible"
               htmlFor="openai-base-url"
-              hint="Optionnel. Laisser vide pour utiliser l'API OpenAI officielle."
+              hint="Optionnel. Laisser vide pour utiliser l'API OpenAI officielle. Ollama local : http://localhost:11434/v1 (clé API non requise)."
             >
               <Input
                 id="openai-base-url"
                 value={settings.baseURL ?? ""}
                 onChange={(e) => setSettings({ ...settings, baseURL: e.target.value })}
-                placeholder="https://api.openai.com/v1"
+                placeholder="https://ollama.com/v1"
               />
             </Field>
           )}

@@ -42,11 +42,13 @@ export async function saveSettings(s: Settings): Promise<void> {
 }
 
 export function toLlmConfig(s: Settings): LlmConfig | null {
-  if (!s.apiKey) return null;
+  const baseURL = s.provider === "openai" ? s.baseURL?.trim() : undefined;
+  if (!s.apiKey && !baseURL) return null;
   return {
     provider: s.provider,
-    apiKey: s.apiKey,
+    // Un endpoint local (Ollama…) ignore la clé ; createOpenAI en exige une non vide.
+    apiKey: s.apiKey || "ollama",
     model: s.model,
-    ...(s.provider === "openai" && s.baseURL?.trim() ? { baseURL: s.baseURL.trim() } : {}),
+    ...(baseURL ? { baseURL } : {}),
   };
 }
